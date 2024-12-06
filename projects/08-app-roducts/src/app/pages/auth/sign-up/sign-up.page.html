@@ -1,0 +1,57 @@
+<app-header
+  backButton="/auth"
+  title="Registrarse"
+  [isModal]="isModal"
+></app-header>
+
+<ion-content [fullscreen]="true">
+  <div class="d-flex-center">
+    <form
+      [formGroup]="group"
+      class="auth-form"
+      (ngSubmit)="submit()"
+      (keypress.enter)="submit()"
+    >
+      <app-logo></app-logo>
+
+      <app-custom-input
+        autoComplete="name"
+        icon="person-outline"
+        [control]="group.controls.name"
+        type="text"
+        label="Nombre"
+        [required]="true"
+      ></app-custom-input>
+
+      <app-custom-input
+        icon="mail-outline"
+        [control]="group.controls.email"
+        type="email"
+        label="Email"
+        [required]="true"
+        autoComplete="email"
+      ></app-custom-input>
+
+      <app-custom-input
+        icon="lock-closed-outline"
+        [control]="group.controls.password"
+        type="password"
+        label="Contraseña"
+        [required]="true"
+        autoComplete="email"
+      ></app-custom-input>
+
+      <ion-button
+        expand="block"
+        shape="round"
+        mode="ios"
+        class="submit"
+        type="submit"
+        [disabled]="group.invalid"
+      >
+        Registrar
+        <ion-icon slot="end" name="log-in-outline"></ion-icon>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

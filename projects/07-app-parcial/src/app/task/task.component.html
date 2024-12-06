@@ -1,0 +1,115 @@
+<div class="projects-container">
+  <h2 class="page-title">Tareas</h2>
+  <table class="projects-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Descripción</th>
+        <th>Estado</th>
+        <th>ID del Proyecto</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks">
+        <td>{{ task.id }}</td>
+        <td>{{ task.name }}</td>
+        <td>{{ task.description }}</td>
+        <td>
+          <span
+            class="status-badge"
+            [ngClass]="{
+              'status-active': task.status === 'active',
+              'status-pending': task.status === 'pending',
+              'status-completed': task.status === 'completed',
+            }"
+          >
+            {{ task.status }}
+          </span>
+        </td>
+        <td>{{ task.project_id }}</td>
+        <td>
+          <button
+            class="btn btn-primary"
+            (click)="editTask(task)"
+            *ngIf="userRole === 'admin'"
+          >
+            Editar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="userRole === 'admin'" class="form-container">
+    <h3 class="section-title">Crear Tarea</h3>
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="form-container">
+      <div class="form-group">
+        <label class="form-label" for="name">Nombre:</label>
+        <input class="form-input" id="name" formControlName="name" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="description">Descripción:</label>
+        <input
+          class="form-input"
+          id="description"
+          formControlName="description"
+        />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="status">Estado:</label>
+        <input class="form-input" id="status" formControlName="status" />
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="project_id">ID del Proyecto:</label>
+        <input
+          class="form-input"
+          id="project_id"
+          formControlName="project_id"
+        />
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-success" type="submit">Crear</button>
+      </div>
+    </form>
+
+    <div *ngIf="isEditing" class="form-container">
+      <h3 class="section-title">Editar Tarea</h3>
+      <form [formGroup]="editForm" (ngSubmit)="onEditSubmit()">
+        <div class="form-group">
+          <label class="form-label" for="edit-name">Nombre:</label>
+          <input class="form-input" id="edit-name" formControlName="name" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-description">Descripción:</label>
+          <input
+            class="form-input"
+            id="edit-description"
+            formControlName="description"
+          />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-status">Estado:</label>
+          <input class="form-input" id="edit-status" formControlName="status" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edit-project_id"
+            >ID del Proyecto:</label
+          >
+          <input
+            class="form-input"
+            id="edit-project_id"
+            formControlName="project_id"
+          />
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit">Guardar</button>
+          <button class="btn btn-danger" type="button" (click)="cancelEdit()">
+            Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

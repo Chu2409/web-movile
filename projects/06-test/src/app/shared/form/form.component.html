@@ -1,0 +1,75 @@
+<div class="plato-tipico-form">
+  <h2 *ngIf="model !== null">Actualizar plato tipico</h2>
+
+  <h2 *ngIf="model === null">Crear plato tipico</h2>
+
+  <form [formGroup]="platoTipicoForm" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre del plato</mat-label>
+
+        <input matInput formControlName="name" required />
+        <mat-error *ngIf="platoTipicoForm.get('name')?.hasError('required')"
+          >Obligatorio</mat-error
+        >
+        <mat-error *ngIf="platoTipicoForm.get('name')?.hasError('minlength')"
+          >Mín. 3 caracteres</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>País de origen</mat-label>
+
+        <input matInput formControlName="country" required />
+        <mat-error *ngIf="platoTipicoForm.get('country')?.hasError('required')"
+          >Obligatorio</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Ingrediente principal</mat-label>
+        <input matInput formControlName="ingredient" required />
+        <mat-error
+          *ngIf="platoTipicoForm.get('ingredient')?.hasError('required')"
+          >Obligatorio</mat-error
+        >
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Tiempo (min)</mat-label>
+        <input matInput type="number" formControlName="time" required />
+        <mat-error *ngIf="platoTipicoForm.get('time')?.hasError('required')"
+          >Obligatorio</mat-error
+        >
+        <mat-error *ngIf="platoTipicoForm.get('time')?.hasError('min')"
+          >Mayor a 0</mat-error
+        >
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Dificultad</mat-label>
+        <mat-select formControlName="difficulty" required>
+          <mat-option value="facil">Fácil</mat-option>
+          <mat-option value="medio">Medio</mat-option>
+          <mat-option value="dificil">Difícil</mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="platoTipicoForm.get('difficulty')?.hasError('required')"
+          >Obligatorio</mat-error
+        >
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="platoTipicoForm.invalid"
+        class="btn-save"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

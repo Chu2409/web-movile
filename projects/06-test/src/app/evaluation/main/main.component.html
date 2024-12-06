@@ -1,0 +1,5 @@
+<div class="container">
+  <app-form [model]="model" (reloadEmitter)="reloadData()"></app-form>
+
+  <app-list (editEmitter)="onEdit($event)" [reloadFlag]="reloadFlag"></app-list>
+</div>

@@ -1,0 +1,17 @@
+<mat-drawer-container autosize="true" class="drawer-container">
+  <mat-drawer mode="side" class="drawer" opened="true">
+    <div class="opciones">
+      <h3 *ngIf="expanded && isLogged">Opciones del Sistema</h3>
+    </div>
+    <div>
+      <qr-menu
+        *ngIf="isLogged"
+        (toggleExpandedEmitter)="onToggleExpanded($event)"
+      ></qr-menu>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <qr-header *ngIf="isLogged"></qr-header>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
